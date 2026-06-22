@@ -32,6 +32,9 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# ...단, 설정 안내용 예시 파일은 추적한다 (실제 키 없음)
+!.env.local.example
+!.env.example
 
 # vercel
 .vercel
