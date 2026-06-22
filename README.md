@@ -95,18 +95,38 @@ supabase/
 
 ## 📦 배포
 
-### GitHub Pages (정적 export)
+이 레포를 GitHub 연동으로 Vercel 또는 Render에 배포할 수 있습니다.
+**어느 쪽이든 빌드 전에 아래 환경변수 2개를 플랫폼에 반드시 등록**해야 실제 데이터가 연결됩니다.
 
-```bash
-GITHUB_PAGES=true npm run build   # out/ 폴더 생성
+```
+NEXT_PUBLIC_SUPABASE_URL
+NEXT_PUBLIC_SUPABASE_ANON_KEY
 ```
 
-[`next.config.ts`](next.config.ts)는 `GITHUB_PAGES=true`일 때 `output: "export"` + `basePath`를 적용합니다.
-**`basePath` 값은 레포지토리 이름과 같아야 합니다** (이 레포라면 `/ai-needs-website`). 생성된 `out/`을 GitHub Pages에 배포합니다.
+> 환경변수가 없어도 **빌드는 실패하지 않습니다.** (클라이언트는 지연 초기화됩니다.)
+> 다만 값이 없으면 화면에 "요청 목록을 불러오지 못했습니다" 안내가 표시되니, 배포 전에 꼭 등록하세요.
 
-### Vercel
+### Vercel (권장)
 
-루트 도메인(`/`)에서 서빙됩니다. Vercel 프로젝트의 환경변수에 `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY`를 등록하면 됩니다.
+1. Vercel에서 이 GitHub 레포를 Import — Next.js가 자동 감지됩니다.
+2. **Settings → Environment Variables** 에 위 두 값을 추가.
+3. Deploy. 루트 도메인(`/`)에서 서빙됩니다.
+
+### Render
+
+**Web Service** 로 생성하고 다음을 설정합니다.
+
+| 항목 | 값 |
+|------|-----|
+| Build Command | `npm install && npm run build` |
+| Start Command | `npm start` |
+| Environment | 위 두 환경변수 등록 |
+
+> Next.js는 Render가 주입하는 `PORT` 환경변수를 자동으로 사용합니다.
+
+### (선택) GitHub Pages 정적 배포
+
+`GITHUB_PAGES=true npm run build` 로 빌드하면 [`next.config.ts`](next.config.ts)가 `output: "export"` + `basePath`를 적용해 `out/`을 생성합니다. 이 경우 `basePath`를 레포 이름(`/ai-needs-website`)에 맞춰야 합니다.
 
 ---
 

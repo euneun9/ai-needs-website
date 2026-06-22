@@ -1,5 +1,5 @@
 import type { NewPost, Post } from "./types";
-import { supabase } from "./supabase";
+import { getSupabase } from "./supabase";
 
 /**
  * 데이터 레이어 (Supabase)
@@ -32,7 +32,7 @@ function toPost(row: Row): Post {
 
 /** 최신순 정렬된 전체 글. */
 export async function getPosts(): Promise<Post[]> {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from(TABLE)
     .select("*")
     .order("created_at", { ascending: false });
@@ -43,7 +43,7 @@ export async function getPosts(): Promise<Post[]> {
 
 /** 새 글을 추가하고 저장된 글(서버가 채운 id/created_at 포함)을 반환한다. */
 export async function addPost(input: NewPost): Promise<Post> {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from(TABLE)
     .insert({
       team: input.team.trim(),
