@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+/*
+  Vercel-style design tokens (see DESIGN.md)
+  Near-monochrome, hairline borders, 6px radii, single prismatic accent.
+*/
+@theme {
+  /* Colors */
+  --color-graphite: #171717; /* primary text, filled actions */
+  --color-marble: #fafafa; /* page canvas */
+  --color-pearl: #ffffff; /* card surface */
+  --color-hairline: #ebebeb; /* borders / dividers */
+  --color-felt: #4d4d4d; /* secondary text */
+  --color-smoke: #666666; /* metadata, timestamps */
+  --color-ash: #a8a8a8; /* placeholder, disabled */
+  --color-fog: #7d7d7d; /* helper copy */
+  --color-ice: #f0fbff; /* cool wash tint */
+  --color-prism-blue: #52aeff;
+  --color-prism-red: #e5484d;
+  --color-prism-teal: #45dec5;
+  --color-vercel-blue: #0070f3;
+
+  /* Fonts (Geist is wired up in layout.tsx via next/font) */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo,
+    Consolas, monospace;
+
+  /* Radius */
+  --radius-card: 6px;
+}
+
+:root {
+  --background: #fafafa;
+  --foreground: #171717;
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Faint engineer grid — blueprint texture for the hero */
+.engineer-grid {
+  background-image: linear-gradient(
+      to right,
+      rgba(23, 23, 23, 0.04) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(23, 23, 23, 0.04) 1px, transparent 1px);
+  background-size: 44px 44px;
+  background-position: center;
+}
+
+/* Signature prismatic conic gradient — only chromatic moment, behind the prism mark */
+.prism-glow {
+  background: conic-gradient(
+    from 180deg at 50% 70%,
+    transparent 0deg,
+    #eec32d 55deg,
+    #ec4b4b 130deg,
+    #709ab9 215deg,
+    #4dffbf 300deg,
+    transparent 360deg
+  );
+  filter: blur(30px);
+  opacity: 0.85;
+}
+
+/* Modal motion */
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-overlay-in {
+  animation: overlay-in 0.18s ease-out;
+}
+.animate-modal-in {
+  animation: modal-in 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-overlay-in,
+  .animate-modal-in {
+    animation: none;
+  }
+}
